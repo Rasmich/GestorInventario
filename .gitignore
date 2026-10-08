@@ -1,0 +1,17 @@
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Archivos con credenciales
+.env
+.env.*
+!.env.example
+
+# Archivos temporales
+*.log
+ksk.txt
+
+# Frontend React
+node_modules/
+dist/
