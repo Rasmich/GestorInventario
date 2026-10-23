@@ -37,3 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+# Configuracion privada de demo
+.env.demo
+.env.demo.*
+!.env.demo.example

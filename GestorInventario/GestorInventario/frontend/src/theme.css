@@ -1,0 +1,246 @@
+/* Fase 1: sistema visual. Las medidas y la estructura de tablas/formularios
+   se mantienen en App.css; aquí solo se adapta su paleta. */
+:root {
+  color-scheme: dark;
+  --fondo: #0c111b;
+  --superficie: #141c29;
+  --superficie-alta: #1a2535;
+  --borde: #2a374b;
+  --texto: #edf2fa;
+  --texto-secundario: #a4b2c8;
+  --azul: #2f6de0;
+  --azul-claro: #8bb6ff;
+  --violeta: #b5a2fa;
+  --verde: #73dfb0;
+  --rojo: #ff929e;
+  --ambar: #f1c675;
+  --sombra: 0 8px 28px rgb(0 0 0 / 16%);
+}
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.icono { width: 20px; height: 20px; flex: 0 0 auto; vertical-align: middle; }
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  width: 248px;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  padding: 30px 18px;
+  background: #101724;
+  border-right: 1px solid var(--borde);
+}
+
+.sidebar-marca { display: flex; align-items: center; gap: 12px; margin: 0 8px 42px; }
+.marca-icono {
+  display: grid;
+  place-items: center;
+  flex: 0 0 42px;
+  height: 42px;
+  border: 1px solid #648df3;
+  border-radius: 12px;
+  background: linear-gradient(140deg, #3977ed, #7054cb);
+  color: #fff;
+  box-shadow: 0 4px 16px rgb(55 117 238 / 15%);
+}
+.marca-icono .icono { width: 24px; height: 24px; }
+.sidebar .sidebar-marca h2 { margin: 0; font-size: 16px; line-height: 1.4; letter-spacing: -0.2px; }
+.sidebar nav { gap: 8px; }
+.sidebar nav button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--texto-secundario);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+.sidebar nav button .icono { color: #8a9bb6; }
+.sidebar nav button[aria-current='page'] {
+  border-color: #31538a;
+  background: #1c3152;
+  color: #e4efff;
+  box-shadow: inset 3px 0 0 #5795ff;
+}
+.sidebar nav button[aria-current='page'] .icono { color: var(--azul-claro); }
+
+.contenido {
+  padding: 32px 36px 48px;
+  background: radial-gradient(ellipse at 95% 0, rgb(70 75 145 / 8%), transparent 45%), var(--fondo);
+  color: var(--texto);
+}
+.contenido > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 32px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--borde);
+}
+.cabecera-identidad { min-width: 0; }
+.contenido > header h1 { margin: 0 0 8px; font-size: clamp(1.6rem, 2.5vw, 2rem); font-weight: 650; letter-spacing: -0.7px; }
+.contenido > header p { margin: 0; color: var(--texto-secundario); font-size: 0.875rem; line-height: 1.6; }
+.contenido > header > button { flex-shrink: 0; max-width: 100%; }
+.panel { border: 1px solid var(--borde); background: var(--superficie); border-radius: 16px; box-shadow: var(--sombra); }
+
+.contenido button, .login-formulario button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #4c86f4;
+  border-radius: 10px;
+  background: var(--azul);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 14%);
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+.contenido .boton-secundario,
+.contenido .botones-formulario > button + button {
+  background: var(--superficie-alta);
+  border-color: #3c4c65;
+  color: #d1dced;
+  box-shadow: none;
+}
+.contenido button:disabled, .login-formulario button:disabled {
+  opacity: 1;
+  border-color: #344157;
+  background: #263248;
+  color: #9babc3;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+.sidebar button:focus-visible,
+.contenido :is(button, input, select, textarea, .tabla-contenedor):focus-visible,
+.login-formulario :is(button, input):focus-visible {
+  outline: 3px solid var(--azul-claro);
+  outline-offset: 3px;
+}
+
+.inicio { gap: 24px; }
+.inicio-cabecera { padding: 2px 0 4px; }
+.inicio h2 { font-size: 1.125rem; letter-spacing: -0.25px; color: var(--texto); }
+.inicio p { color: var(--texto-secundario); }
+.inicio-cabecera p { font-size: 0.875rem; }
+.inicio-tarjetas { gap: 18px; align-items: stretch; }
+.inicio-tarjeta {
+  --acento: var(--azul-claro);
+  --fondo-acento: #203354;
+  padding: 22px;
+  border-top: 1px solid var(--borde);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 3%), var(--sombra);
+  animation: entrada-panel 220ms ease-out backwards;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+.inicio-tarjeta[data-acento='verde'] { --acento: var(--verde); --fondo-acento: #183c34; animation-delay: 30ms; }
+.inicio-tarjeta[data-acento='violeta'] { --acento: var(--violeta); --fondo-acento: #302a4b; animation-delay: 60ms; }
+.inicio-tarjeta[data-acento='ambar'] { --acento: var(--ambar); --fondo-acento: #3c3221; animation-delay: 90ms; border-top-color: var(--borde); }
+.inicio-tarjeta dt { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; min-height: 48px; color: #c0ccde; font-size: 0.875rem; font-weight: 500; line-height: 1.5; }
+.tarjeta-icono { display: grid; place-items: center; flex: 0 0 36px; height: 36px; border-radius: 10px; background: var(--fondo-acento); color: var(--acento); }
+.inicio-tarjeta dd { margin: 18px 0 10px; font-size: clamp(2rem, 3vw, 2.75rem); line-height: 1.1; letter-spacing: -1.2px; font-variant-numeric: tabular-nums; color: var(--texto); }
+.inicio-tarjeta p { font-size: 0.8rem; }
+.inicio > section.panel { padding: 26px; animation: entrada-panel 220ms ease-out backwards; }
+.inicio > section.panel h2 { display: flex; align-items: center; gap: 12px; }
+.seccion-icono { display: inline-grid; place-items: center; flex: 0 0 34px; height: 34px; border: 1px solid #34456c; border-radius: 10px; background: #202d46; color: var(--violeta); }
+.seccion-icono-ambar { border-color: #59472b; background: #332c20; color: var(--ambar); }
+.inicio > section.panel > p { font-size: 0.875rem; }
+
+/* Únicamente colores para los componentes de la siguiente fase. */
+.login { background: var(--fondo); }
+.login-formulario { background: var(--superficie); box-shadow: var(--sombra); }
+.login-formulario h1, .login-formulario label, .formulario-producto label { color: var(--texto); }
+.login-formulario p, :is(.formulario-producto, .login-formulario) .leyenda-obligatorios { color: var(--texto-secundario); }
+.formulario-producto { border-color: var(--borde); background: #111a28; }
+.formulario-producto input, .formulario-producto textarea, .formulario-producto select,
+.login-formulario input, .filtros-productos input, .filtros-productos select {
+  background: #0e1725;
+  border-color: #465670;
+  color: var(--texto);
+}
+input::placeholder, textarea::placeholder { color: #94a4ba; opacity: 1; }
+.tabla-productos th, .tabla-productos td { border-bottom-color: var(--borde); }
+.tabla-productos th { background: #192334; color: #c2cfe1; }
+.tabla-productos tbody tr:hover { background: #1b2738; }
+.tabla-contenedor { scrollbar-color: #485d7d #111a28; }
+.estado-activo, .inicio-entrada { background: #183d32; color: var(--verde); }
+.estado-inactivo { background: #2b3444; color: #c2cddd; }
+.inicio-salida { background: #203559; color: #a4c6ff; }
+.inicio-stock { background: #3b3020; color: var(--ambar); }
+.inicio-sin-stock { background: #432732; color: var(--rojo); }
+.inicio .inicio-codigo { color: var(--texto-secundario); }
+.contenido .error, .login-formulario .error, .inicio .error, .indicador-obligatorio { color: var(--rojo); }
+.exito { color: var(--verde); }
+:is(.formulario-producto, .login-formulario) [aria-invalid='true'] { border-color: var(--rojo); }
+
+@media (hover: hover) {
+  .contenido button:not(:disabled):hover, .login-formulario button:not(:disabled):hover {
+    background: #2863d5;
+    border-color: #78a4fa;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgb(0 0 0 / 20%);
+  }
+  .contenido .boton-secundario:not(:disabled):hover,
+  .contenido .botones-formulario > button + button:not(:disabled):hover { background: #293950; border-color: #647b9d; }
+  .sidebar nav button:not(:disabled):hover { background: #1a273c; border-color: #3d516f; color: var(--texto); transform: translateX(2px); }
+  .sidebar nav button[aria-current='page']:hover { background: #233d64; border-color: #4972af; }
+  .inicio-tarjeta:hover { transform: translateY(-2px); border-color: #526580; box-shadow: 0 12px 28px rgb(0 0 0 / 23%); }
+}
+
+.contenido button:not(:disabled):active,
+.login-formulario button:not(:disabled):active,
+.sidebar nav button:not(:disabled):active { transform: scale(0.98); box-shadow: none; }
+
+@keyframes entrada-panel { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 1200px) {
+  .contenido { padding: 28px 24px 40px; }
+}
+
+@media (max-width: 768px) {
+  .sidebar { position: static; width: 100%; height: auto; overflow-y: visible; padding: 20px 16px 16px; border-right: 0; border-bottom: 1px solid var(--borde); }
+  .sidebar-marca { margin: 0 4px 20px; }
+  .sidebar nav { gap: 8px; }
+  .sidebar nav button { padding: 12px; }
+  .contenido { width: 100%; padding: 24px 16px 32px; }
+  .contenido > header { padding-bottom: 22px; margin-bottom: 24px; gap: 16px; }
+  .inicio-tarjetas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .inicio-tarjeta { padding: 20px; }
+  .inicio > section.panel { padding: 20px; }
+}
+
+@media (max-width: 480px) {
+  .sidebar nav button { gap: 10px; font-size: 0.875rem; }
+  .contenido > header { align-items: flex-start; }
+  .inicio-tarjetas { grid-template-columns: minmax(0, 1fr); }
+  .inicio-tarjeta dt { min-height: 36px; align-items: center; }
+  .inicio-tarjeta dd { font-size: 2.5rem; }
+  .inicio > section.panel { padding: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar nav button, .contenido button, .login-formulario button, .inicio-tarjeta,
+  .inicio > section.panel { animation: none; transition: none; }
+  .sidebar nav button:not(:disabled):is(:hover, :active), .contenido button:not(:disabled):is(:hover, :active),
+  .login-formulario button:not(:disabled):is(:hover, :active), .inicio-tarjeta:hover { transform: none; }
+}

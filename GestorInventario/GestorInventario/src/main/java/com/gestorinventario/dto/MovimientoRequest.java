@@ -1,12 +1,14 @@
 package com.gestorinventario.dto;
 
 import com.gestorinventario.model.TipoMovimiento;
+import jakarta.validation.constraints.Size;
 
 public class MovimientoRequest {
 
     private Long productoId;
     private TipoMovimiento tipo;
     private Integer cantidad;
+    @Size(max = 255, message = "Las observaciones no pueden superar los 255 caracteres.")
     private String observaciones;
 
     public MovimientoRequest() {

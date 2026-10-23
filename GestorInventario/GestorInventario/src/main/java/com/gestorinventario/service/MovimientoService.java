@@ -14,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import com.gestorinventario.error.ValidacionCamposException;
 
 @Service
 public class MovimientoService {
@@ -58,7 +61,10 @@ public class MovimientoService {
                                           String observaciones, String usernameActor) {
 
         if (productoId == null || tipo == null) {
-            throw new IllegalArgumentException("Producto y tipo de movimiento son obligatorios");
+            Map<String, String> campos = new LinkedHashMap<>();
+            if (productoId == null) campos.put("productoId", "Selecciona un producto.");
+            if (tipo == null) campos.put("tipo", "Selecciona un tipo de movimiento.");
+            throw new ValidacionCamposException("Producto y tipo de movimiento son obligatorios", campos);
         }
 
         // Buscar el producto
@@ -73,8 +79,8 @@ public class MovimientoService {
 
         // Comprobar que la cantidad sea válida
         if (cantidad == null || cantidad <= 0) {
-            throw new IllegalArgumentException(
-                    "La cantidad debe ser mayor que 0");
+            throw new ValidacionCamposException("La cantidad debe ser mayor que 0",
+                    Map.of("cantidad", "Introduce una cantidad mayor que cero."));
         }
 
         var usuario = usuarioRepository.findByUsername(usernameActor)

@@ -1,0 +1,487 @@
+.app {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+}
+
+.sidebar {
+  flex-shrink: 0;
+  min-width: 0;
+  width: 250px;
+  background-color: #1e293b;
+  color: white;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar a {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.sidebar a:hover {
+  background-color: #334155;
+  color: white;
+}
+
+.contenido {
+  min-width: 0;
+  max-width: 100%;
+  flex: 1;
+  padding: 40px;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  overflow-wrap: anywhere;
+}
+
+.contenido header {
+  margin-bottom: 30px;
+}
+
+.panel {
+  min-width: 0;
+  max-width: 100%;
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.login {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f5f9;
+}
+
+.login-formulario {
+  width: 100%;
+  max-width: 400px;
+  padding: 35px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-formulario h1 {
+  color: #1e293b;
+  margin-bottom: 0;
+}
+
+.login-formulario p {
+  color: #64748b;
+}
+
+.login-formulario label {
+  font-weight: bold;
+  color: #334155;
+}
+
+.login-formulario input {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.login-formulario button,
+.contenido button {
+  padding: 12px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-formulario button:hover,
+.contenido button:hover {
+  background-color: #1d4ed8;
+}
+
+.login-formulario button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-formulario .error {
+  color: #dc2626;
+}
+
+
+.sidebar nav button {
+  background: transparent;
+  color: #cbd5e1;
+  border: none;
+  text-align: left;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.sidebar nav button:hover {
+  background-color: #334155;
+  color: white;
+}
+
+.tabla-contenedor {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  /* Wide tables must not contribute to the intrinsic width of their ancestors. */
+  contain: inline-size;
+}
+
+.tabla-productos {
+  width: 100%;
+  min-width: var(--tabla-ancho-minimo, 0px);
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla-productos th {
+  background-color: #f8fafc;
+  color: #334155;
+}
+
+.tabla-productos tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Products need readable columns at every viewport width, including desktop. */
+.tabla-contenedor[aria-label="Listado de productos"] {
+  --tabla-ancho-minimo: 1400px;
+}
+
+.tabla-contenedor[aria-label="Listado de productos"] .tabla-productos {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.tabla-contenedor[aria-label="Listado de productos"] :is(th, td):not([colspan]) {
+  min-width: 110px;
+}
+
+.tabla-contenedor[aria-label="Listado de productos"] :is(th, td):first-child:not([colspan]) {
+  min-width: 140px;
+}
+
+.tabla-contenedor[aria-label="Listado de productos"] :is(th, td):is(:nth-child(2), :nth-child(3), :nth-child(4)):not([colspan]) {
+  min-width: 180px;
+}
+
+.tabla-contenedor[aria-label="Listado de productos"] td:is(:nth-child(2), :nth-child(3), :nth-child(4)):not([colspan]) {
+  overflow-wrap: anywhere;
+}
+
+.tabla-contenedor[aria-label="Listado de productos"] th,
+.tabla-contenedor[aria-label="Listado de productos"] td:is(:first-child, :nth-child(5), :nth-child(6), :nth-child(7), :nth-child(8), :nth-child(9)):not([colspan]),
+.contenido .tabla-contenedor[aria-label="Listado de productos"] button {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.tabla-contenedor[aria-label="Listado de productos"] .botones-formulario {
+  min-width: 220px;
+}
+
+.tabla-contenedor[aria-label="Listado de productos"] .botones-formulario > button {
+  flex-shrink: 0;
+}
+
+.contenido .error {
+  color: #dc2626;
+}
+
+.error-formulario {
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+  scroll-margin-block: 24px;
+}
+
+:is(.formulario-producto, .login-formulario) [aria-invalid="true"] {
+  border-color: #dc2626;
+  scroll-margin-block: 24px;
+}
+
+.cabecera-productos,
+.botones-formulario {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cabecera-productos {
+  justify-content: space-between;
+}
+
+.formulario-producto {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.formulario-producto fieldset {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+}
+
+.formulario-producto legend {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.formulario-producto label {
+  font-weight: bold;
+  color: #334155;
+}
+
+.indicador-obligatorio {
+  color: #b91c1c;
+  font-weight: bold;
+}
+
+:is(.formulario-producto, .login-formulario) .leyenda-obligatorios {
+  margin: 0 0 4px;
+  max-width: 100%;
+  color: #475569;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: normal;
+}
+
+.formulario-producto input,
+.formulario-producto textarea,
+.formulario-producto select {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: white;
+  color: #1e293b;
+  font: inherit;
+}
+
+.formulario-producto textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.contenido button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.exito {
+  color: #15803d;
+}
+
+.filtros-productos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.filtros-productos label {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+  max-width: 100%;
+}
+
+.filtros-productos input,
+.filtros-productos select {
+  min-width: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: white;
+  color: #1e293b;
+  font: inherit;
+}
+
+.estado-producto {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.filtros-movimientos label { width: min(100%, 24rem); }
+.filtros-movimientos select { width: 100%; min-height: 44px; }
+
+.estado-activo { background: #dcfce7; color: #166534; }
+.estado-inactivo { background: #e2e8f0; color: #334155; }
+
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.paginacion {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.inicio {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  gap: 24px;
+}
+.inicio > *, .inicio-cabecera > div { min-width: 0; }
+.inicio-cabecera > div { flex: 1 1 240px; }
+.inicio-cabecera > button { flex-shrink: 0; max-width: 100%; }
+/* Keep wide data inside its keyboard-accessible scroll region. */
+.inicio .tabla-contenedor { --tabla-ancho-minimo: 540px; }
+.inicio-cabecera { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.inicio h2 { margin: 0 0 8px; font-size: 1.25rem; }
+.inicio p { color: #475569; line-height: 1.5; }
+.inicio-cabecera p { margin: 0; }
+.inicio-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  gap: 16px;
+  margin: 0;
+}
+.inicio-tarjeta { border-top: 4px solid #2563eb; min-width: 0; }
+.inicio-tarjeta:last-child { border-top-color: #b45309; }
+.inicio-tarjeta dt { font-weight: 600; color: #475569; }
+.inicio-tarjeta dd { margin: 12px 0; font-size: clamp(1.5rem, 2.5vw, 2.25rem); font-weight: 700; overflow-wrap: anywhere; }
+.inicio-tarjeta p { margin: 0; font-size: 0.875rem; }
+.inicio-error { margin-bottom: 16px; }
+.inicio-stock, .inicio-tipo { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.875rem; font-weight: 600; }
+.inicio-stock { background: #fef3c7; color: #92400e; }
+.inicio-sin-stock { background: #fee2e2; color: #991b1b; }
+.inicio-entrada { background: #dcfce7; color: #166534; }
+.inicio-salida { background: #dbeafe; color: #1e40af; }
+.inicio-codigo { display: block; margin-top: 4px; color: #64748b; }
+
+.sidebar button:focus-visible,
+.contenido :is(button, input, select, textarea, .tabla-contenedor):focus-visible,
+.login-formulario :is(button, input):focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+.sidebar button:focus-visible { outline-color: #93c5fd; }
+.sidebar button, .contenido button, .login-formulario button { min-height: 44px; }
+.contenido button, .sidebar button, .login-formulario { overflow-wrap: anywhere; }
+.login { padding: 16px; }
+.login-formulario { min-width: 0; }
+.login-formulario input { min-width: 0; max-width: 100%; }
+
+@media (max-width: 1200px) {
+  .inicio-tarjetas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
+  /* Fit cards to the actual content width, including tablet padding. */
+  .inicio-tarjetas {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+  /* Each scroll region supplies its table's minimum readable width. */
+  .tabla-contenedor { --tabla-ancho-minimo: 600px; }
+  .tabla-contenedor[aria-label="Listado de categorías"] { --tabla-ancho-minimo: 600px; }
+  .tabla-contenedor[aria-label="Listado de proveedores"] { --tabla-ancho-minimo: 1100px; }
+  .tabla-contenedor[aria-label="Historial de movimientos"] { --tabla-ancho-minimo: 1100px; }
+  .tabla-contenedor[aria-label="Listado de usuarios"] { --tabla-ancho-minimo: 950px; }
+  .inicio .tabla-contenedor { --tabla-ancho-minimo: 600px; }
+
+  .tabla-productos :is(th, td) { min-width: 120px; }
+  .tabla-productos :is(th, td):first-child { min-width: 80px; }
+  .tabla-productos :is(th, td):nth-child(2) { min-width: 180px; }
+  .tabla-productos th,
+  .contenido .tabla-productos button,
+  .tabla-productos :is(.estado-producto, .inicio-tipo, .inicio-stock) {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .tabla-productos .botones-formulario { min-width: 200px; }
+  .tabla-productos .botones-formulario > button { flex-shrink: 0; }
+  .tabla-contenedor[aria-label="Historial de movimientos"] :is(th, td):nth-child(5),
+  .tabla-contenedor[aria-label="Listado de usuarios"] :is(th, td):nth-child(4) {
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+  .tabla-contenedor[aria-label="Listado de categorías"] :is(th, td):nth-child(3),
+  .tabla-contenedor[aria-label="Historial de movimientos"] :is(th, td):nth-child(8) { min-width: 220px; }
+  .tabla-contenedor[aria-label="Listado de proveedores"] :is(th, td):nth-child(5),
+  .tabla-contenedor[aria-label="Listado de proveedores"] :is(th, td):nth-child(6) { min-width: 200px; }
+  .inicio [aria-labelledby="inicio-movimientos"] :is(th, td):nth-child(1) { min-width: 200px; }
+  .inicio [aria-labelledby="inicio-movimientos"] :is(th, td):nth-child(2) { min-width: 100px; }
+  .inicio [aria-labelledby="inicio-movimientos"] :is(th, td):nth-child(3) { min-width: 100px; }
+  .inicio [aria-labelledby="inicio-movimientos"] :is(th, td):nth-child(4) { min-width: 200px; }
+  .inicio [aria-labelledby="inicio-alertas"] :is(th, td):nth-child(2) { min-width: 200px; }
+  .app { flex-direction: column; }
+  .sidebar { width: 100%; padding: 16px; }
+  .sidebar h2 { margin: 0 0 16px; }
+  .sidebar nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+  .sidebar nav button { min-width: 0; }
+  /* A definite cross-axis width keeps the column flex item at viewport size. */
+  .contenido { width: 100%; padding: 16px; }
+  .panel, .formulario-producto { padding: 16px; }
+  .tabla-productos th, .tabla-productos td { padding: 10px; }
+  .paginacion p { width: 100%; order: -1; }
+}
+
+@media (max-width: 480px) {
+  .inicio-cabecera { flex-direction: column; align-items: stretch; }
+  .inicio-cabecera > div { flex: auto; }
+  .inicio-cabecera > button { width: 100%; }
+  .filtros-productos label { width: 100%; }
+}

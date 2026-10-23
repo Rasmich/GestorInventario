@@ -1,0 +1,24 @@
+# Lista permitida: no enviar configuraciones locales ni secretos al constructor.
+**
+!Dockerfile
+!pom.xml
+!src/
+!src/main/
+!src/main/**
+src/main/resources/**
+!src/main/resources/application-demo.properties
+!src/main/resources/db/
+!src/main/resources/db/migration/
+!src/main/resources/db/migration/*.sql
+!frontend/
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/index.html
+!frontend/vite.config.js
+!frontend/src/
+!frontend/src/**
+!frontend/public/
+!frontend/public/**
+**/.env*
+**/*.pem
+**/*.key

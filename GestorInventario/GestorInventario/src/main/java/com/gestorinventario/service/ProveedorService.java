@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
+import com.gestorinventario.error.CampoUnico;
+import com.gestorinventario.error.IntegridadDatos;
 
 @Service
 @Transactional(readOnly = true)
@@ -33,19 +35,27 @@ public class ProveedorService {
     public Proveedor crearProveedor(ProveedorRequest request) {
         Proveedor proveedor = new Proveedor();
         aplicarDatos(proveedor, request);
-        return proveedorRepository.save(proveedor);
+        return guardarProveedor(proveedor);
     }
 
     @Transactional
     public Proveedor actualizarProveedor(Long id, ProveedorRequest request) {
         Proveedor proveedor = obtenerProveedorPorId(id);
         aplicarDatos(proveedor, request);
-        return proveedorRepository.save(proveedor);
+        return guardarProveedor(proveedor);
     }
 
     @Transactional
     public void eliminarProveedor(Long id) {
         eliminacionService.eliminarProveedor(id);
+    }
+
+    private Proveedor guardarProveedor(Proveedor proveedor) {
+        return IntegridadDatos.guardar(CampoUnico.PROVEEDOR, () -> {
+            Proveedor guardado = proveedorRepository.save(proveedor);
+            proveedorRepository.flush();
+            return guardado;
+        });
     }
 
     private void aplicarDatos(Proveedor proveedor, ProveedorRequest request) {

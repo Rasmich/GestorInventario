@@ -13,6 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import com.gestorinventario.error.CampoUnico;
+import com.gestorinventario.error.ConflictoUnicoException;
+import com.gestorinventario.error.IntegridadDatos;
+import com.gestorinventario.error.ValidacionCamposException;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,7 +33,7 @@ public class UsuarioService {
     @Transactional
     public Usuario crearUsuario(UsuarioRequest request) {
         if (usuarioRepository.existsByUsername(request.getUsername())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El username ya existe");
+            throw new ConflictoUnicoException(CampoUnico.USUARIO, null);
         }
         Usuario usuario = new Usuario(
                 request.getNombre(),
@@ -36,7 +41,7 @@ public class UsuarioService {
                 codificarPassword(request.getPassword()),
                 request.getRol());
         // El constructor conserva activo=true y el ID generado por MySQL.
-        return usuarioRepository.saveAndFlush(usuario);
+        return IntegridadDatos.guardar(CampoUnico.USUARIO, () -> usuarioRepository.saveAndFlush(usuario));
     }
 
     public List<Usuario> listarUsuarios() {
@@ -52,7 +57,7 @@ public class UsuarioService {
         List<Usuario> administradores = bloquearAdministradores(actor);
         Usuario usuario = usuarioRepository.findByIdForUpdate(id).orElseThrow(this::noEncontrado);
         if (usuarioRepository.existsByUsernameAndIdNot(request.username(), id)) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El username ya existe");
+            throw new ConflictoUnicoException(CampoUnico.USUARIO, null);
         }
         if (request.rol() != Rol.ADMIN) {
             protegerUltimoAdministrador(usuario, administradores);
@@ -60,7 +65,7 @@ public class UsuarioService {
         usuario.setNombre(request.nombre());
         usuario.setUsername(request.username());
         usuario.setRol(request.rol());
-        return usuarioRepository.saveAndFlush(usuario);
+        return IntegridadDatos.guardar(CampoUnico.USUARIO, () -> usuarioRepository.saveAndFlush(usuario));
     }
 
     @Transactional
@@ -104,7 +109,8 @@ public class UsuarioService {
     private String codificarPassword(String password) {
         if (password == null || password.isBlank() || password.length() < 8
                 || password.getBytes(StandardCharsets.UTF_8).length > 72) {
-            throw new IllegalArgumentException("La contrasena requiere al menos 8 caracteres y como maximo 72 bytes UTF-8");
+            throw new ValidacionCamposException("La contrasena requiere al menos 8 caracteres y como maximo 72 bytes UTF-8",
+                    Map.of("password", "La contraseña requiere al menos 8 caracteres y un máximo de 72 bytes UTF-8."));
         }
         return passwordEncoder.encode(password);
     }

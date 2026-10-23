@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
+import com.gestorinventario.error.CampoUnico;
+import com.gestorinventario.error.IntegridadDatos;
 
 @Service
 @Transactional(readOnly = true)
@@ -50,7 +52,11 @@ public class ProductoService {
         // La entidad inicializa el stock a cero; la peticion no admite stock.
         Producto producto = new Producto();
         aplicarDatos(producto, request);
-        return productoRepository.save(producto);
+        return IntegridadDatos.guardar(CampoUnico.PRODUCTO, () -> {
+            Producto guardado = productoRepository.save(producto);
+            productoRepository.flush();
+            return guardado;
+        });
     }
 
     @Transactional
@@ -61,7 +67,7 @@ public class ProductoService {
         // Se conserva el stock y la version de la entidad cargada.
         aplicarDatos(producto, request);
         // @Version comprueba al escribir que nadie haya modificado el producto.
-        return productoRepository.saveAndFlush(producto);
+        return IntegridadDatos.guardar(CampoUnico.PRODUCTO, () -> productoRepository.saveAndFlush(producto));
     }
 
     @Transactional

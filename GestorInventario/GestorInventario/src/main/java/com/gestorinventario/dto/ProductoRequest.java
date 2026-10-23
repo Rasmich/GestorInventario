@@ -6,13 +6,17 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
 public class ProductoRequest {
 
     @NotBlank
+    @Size(max = 255, message = "El código no puede superar los 255 caracteres.")
     private String codigo;
     @NotBlank
+    @Size(max = 255, message = "El nombre no puede superar los 255 caracteres.")
     private String nombre;
+    @Size(max = 255, message = "La descripción no puede superar los 255 caracteres.")
     private String descripcion;
     @NotNull
     @DecimalMin(value = "0.00")

@@ -6,6 +6,7 @@ import com.gestorinventario.dto.PaginaResponse;
 import com.gestorinventario.mapper.ResponseMapper;
 import com.gestorinventario.model.TipoMovimiento;
 import com.gestorinventario.service.MovimientoService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class MovimientoController {
     // Registrar una entrada o salida
     @PostMapping
     public ResponseEntity<MovimientoResponse> registrarMovimiento(
-            @RequestBody MovimientoRequest request, Authentication authentication) {
+            @Valid @RequestBody MovimientoRequest request, Authentication authentication) {
 
         var movimiento = movimientoService.registrarMovimiento(
                 request.getProductoId(),
